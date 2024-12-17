@@ -1,12 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcrypt';
 import userValidationSchema from '@/app/validations/sign-up';
 import { NextRequest, NextResponse } from 'next/server';
 import { ApiError, errorResponse, statusCodes } from '@/utils/errorResponse';
 import { successResponse } from '@/utils/successResponse';
+import prisma from '@/utils/db';
 
-const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
     try {
@@ -17,7 +15,6 @@ export async function POST(req: NextRequest) {
             data: {
                 ...requestData,
                 password: hashedPassword,
-
             },
         });
 

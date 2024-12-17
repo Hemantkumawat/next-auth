@@ -1,15 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { includes } from "lodash";
 import { authMiddleware } from './middlewares/authMiddleware';
+import { errorResponse } from './utils/errorResponse';
 
 export async function middleware(req: NextRequest) {
-  const role = req.headers.get("authorization");
-  await authMiddleware(req);
-  return NextResponse.next();
+  try {
+    let res = await authMiddleware(req);
+    return res;
+  } catch (error) {
+    console.error('error:::', error);
+    return errorResponse(error);
+  }
 }
 
 export const config = {
-    matcher: [
-      '/api/users/me',
-      '/api/users/:path*', '/api/admin/:path*']
+  matcher: [
+    '/api/users/me',
+    '/api/users/:path*', '/api/admin/:path*']
 };

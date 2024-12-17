@@ -39,3 +39,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ##Prisma Commands and steps
 npx prisma studio
 npx prisma db push
+
+## setup jwt secret
+npx auth secret
